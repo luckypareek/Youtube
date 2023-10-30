@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleMenu } from '../Utils/appSlice'
 import {Link} from "react-router-dom"
@@ -9,12 +9,22 @@ const Header = () => {
 
   const [searchQuery,setSearchQuery]=useState("")
   const [suggestions,setSuggestions]=useState([])
-  const [showSuggestions,setShowSuggestions]=useState(true)
+  const [showSuggestions,setShowSuggestions]=useState(false)
+  const searchBoxRef = useRef(null);
 
   const dispatch=useDispatch()
   const toggleSideBar=()=>{
     dispatch(toggleMenu())
   }
+
+  const handleClickOutside = (event) => {
+    
+    if (searchBoxRef.current && !searchBoxRef.current.contains(event.target)) {
+      // Click is outside the search box; hide suggestions
+     
+      setShowSuggestions(false);
+    }
+  };
 
   const searchSuggestions=useSelector(store=> store.search.searchSuggestions)
 
@@ -35,6 +45,16 @@ const Header = () => {
      clearTimeout(timer)
       }
   },[searchQuery])
+
+  useEffect(() => {
+    // Add a click event listener to the document
+    document.addEventListener('click', handleClickOutside);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   const getSearchSuggestions=async()=>{
     const data=await fetch(YOUTUBE_SEARCH_API + searchQuery)
@@ -68,22 +88,38 @@ const Header = () => {
              value={searchQuery}
              onChange={(event)=>setSearchQuery(event.target.value)}
              onFocus={()=>setShowSuggestions(true)}
-             onBlur={()=>setShowSuggestions(false)}
+             //onBlur={()=>setShowSuggestions(false)}
+             ref={searchBoxRef}
              
              />
-            <button  className='border border-gray-400 py-2 px-5 rounded-r-full bg-gray-100'>🔍 </button>
+            <Link to={"/search?query="+searchQuery}> <button  className='border border-gray-400 py-2 px-5 rounded-r-full bg-gray-100'>🔍 </button></Link>
         </div>
-     {showSuggestions &&    <div className='absolute  bg-white py-2 px-5 w-[28rem] shadow-lg rounded-md border border-gray-100'>
+         <div 
+           className='absolute 
+           bg-white py-2 px-5 w-[28rem] shadow-lg rounded-md border border-gray-100'
+          
+          
+           >
           <ul>
-            {suggestions.map((suggestion)=> <Link to={"/watch"}><li className='py-2 px-3 shadow-sm hover:bg-gray-100'>🔍 {suggestion}</li></Link>  )}
-           
+            {showSuggestions ===true? 
+
+            suggestions.map((suggestion)=>  
+            <Link to={"/search?query="+suggestion} key={suggestion}> 
+             <li className='py-2 px-3 shadow-sm hover:bg-gray-100'
+            
+             >🔍{suggestion} </li>
+             </Link> 
+            
+            ):null
+           }
           
           </ul>
-        </div>}
         </div>
-        <div className='col-span-2'> 
-            <img className='h-8' alt="User-icon" src="https://alhathal.net/wp-content/uploads/2019/07/516-5167304_transparent-background-white-user-icon-png-png-download.png"/>
         </div>
+        <div   className='col-span-2'> 
+          <img className='h-8' alt="User-icon" src="https://alhathal.net/wp-content/uploads/2019/07/516-5167304_transparent-background-white-user-icon-png-png-download.png"/>
+        </div>
+        
 
     </div>
   )
