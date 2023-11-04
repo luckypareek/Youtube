@@ -11,6 +11,7 @@ import WatchPage from './Components/WatchPage';
 import SearchResults from './Components/SearchResults';
 
 
+
 export const appRouter=createBrowserRouter([{
   path:"/",
   element:<Body/>,
@@ -26,7 +27,8 @@ export const appRouter=createBrowserRouter([{
     {
       path:"search",
       element:<SearchResults/>
-    }
+    },
+    
   ]
 
   

@@ -9,6 +9,7 @@ const LiveChat = () => {
   const [liveMessage,setLiveMessage]=useState("")
     const dispatch=useDispatch()
      const messages = useSelector(store=> store.chat.messages)
+     const [hideChat,setHideChat]=useState(false)
 
  useEffect(()=>{
    const  dataInterval=setInterval(()=> getLiveData() ,1500)
@@ -26,11 +27,21 @@ const LiveChat = () => {
         "message":makeRandomMessage(20)
       }))
    }
-
+   
+   if(hideChat)
+   {
+    return(
+   <div className='border border-gray-300 w-[360px] p-1 ml-2 rounded-b-lg '>
+   <button className='p-1 m-1 hover:bg-slate-400 rounded-lg w-[330px] ' onClick={()=>setHideChat(false)}>Show Chat</button>
+  </div>
+    )
+   }
 
   return (
+  
+     
     <>
-    <div className="ml-2 p-2 border border-black w-[400px] h-[500px] bg-slate-100 rounded-md overflow-y-scroll flex flex-col-reverse">
+    <div className="ml-2 p-2 border border-gray-300 w-[360px] h-[500px] bg-slate-100 rounded-t-lg overflow-y-scroll flex flex-col-reverse scroll-y-">
        
        {
        //Dont use index for key
@@ -39,7 +50,7 @@ const LiveChat = () => {
         
        </div>
      <form 
-     className='w-[400px] p-2 ml-2 border border-black'
+     className='w-[360px] p-2 ml-2 border border-gray-300 '
      onSubmit={(e)=>{
       e.preventDefault()
       dispatch(addMessage({
@@ -54,14 +65,19 @@ const LiveChat = () => {
      
      >
      <input 
-     className='border border-b-slate-700 w-80' 
+     className=' border border-t-0 border-l-0 border-r-0 border-b-slate-400 border-b-2 w-64 focus:outline-none focus:border-b-blue-500'  
      placeholder='Enter your message' 
      value={liveMessage} 
-     onChange={(event)=> setLiveMessage(event.target.value)}
+     onChange={(event)=> {
+   
+      setLiveMessage(event.target.value)}}
      
      />
-     <button className='bg-slate-200 px-2 ml-2 rounded-sm'>Send</button>
+     <button className='bg-slate-200 px-2 ml-3 rounded-sm '>Send</button>
      </form>
+     <div className='border border-gray-300 w-[360px] p-1 ml-2 rounded-b-lg '>
+      <button className='p-1 m-1 hover:bg-slate-400 rounded-lg w-[330px] ' onClick={()=>setHideChat(true)}>Hide Chat</button>
+     </div>
    </>
   )
 }

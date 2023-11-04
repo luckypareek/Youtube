@@ -78,7 +78,7 @@ const Header = () => {
     <div className='grid grid-flow-col p-5 m-2 shadow-lg'>
         <div className='flex col-span-2'>
           <img onClick={()=> toggleSideBar()} className='h-8' alt="Menu" src="https://cdn.iconscout.com/icon/free/png-256/free-hamburger-menu-462145.png?f=webp"/>
-            <img className='h-8 mx-2' alt="Logo" src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Logo_of_YouTube_%282015-2017%29.svg"/>
+           <Link to="/"> <img className='h-8 mx-2' alt="Logo" src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Logo_of_YouTube_%282015-2017%29.svg"/> </Link>
         </div>
         <div className='col-span-8 px-10'>
           <div>
