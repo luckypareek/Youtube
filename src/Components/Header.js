@@ -94,27 +94,29 @@ const Header = () => {
              />
             <Link to={"/search?query="+searchQuery}> <button  className='border border-gray-400 py-2 px-5 rounded-r-full bg-gray-100'>🔍 </button></Link>
         </div>
-         <div 
-           className='absolute 
-           bg-white py-2 px-5 w-[28rem] shadow-lg rounded-md border border-gray-100'
-          
-          
-           >
-          <ul>
-            {showSuggestions ===true? 
+       { 
+          showSuggestions ===true? 
 
+         <div 
+           className="absolute 
+           bg-white py-2 px-5 w-[28rem] shadow-lg rounded-md border border-gray-100 " 
+            >
+        
+          <ul>
+           {
             suggestions.map((suggestion)=>  
             <Link to={"/search?query="+suggestion} key={suggestion}> 
-             <li className='py-2 px-3 shadow-sm hover:bg-gray-100'
+             <li className='py-2 px-3 shadow-sm hover:bg-gray-100' 
             
              >🔍{suggestion} </li>
              </Link> 
             
-            ):null
-           }
+            )
+}
           
           </ul>
-        </div>
+        </div> :null
+}
         </div>
         <div   className='col-span-2'> 
           <img className='h-8' alt="User-icon" src="https://alhathal.net/wp-content/uploads/2019/07/516-5167304_transparent-background-white-user-icon-png-png-download.png"/>

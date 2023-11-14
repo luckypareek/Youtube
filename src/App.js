@@ -5,12 +5,15 @@ import Body from './Components/Body';
 import { Provider } from 'react-redux';
 import store from './Utils/Store';
 import { RouterProvider, createBrowserRouter ,BrowserRouter} from 'react-router-dom';
-import Maincontainer from './Components/Maincontainer';
+//import Maincontainer from './Components/Maincontainer';
 import VideoContainer from './Components/VideoContainer';
-import WatchPage from './Components/WatchPage';
-import SearchResults from './Components/SearchResults';
+// import WatchPage from './Components/WatchPage';
+// import SearchResults from './Components/SearchResults';
+import { Suspense, lazy } from 'react';
 
-
+const Maincontainer = lazy(()=>import("./Components/Maincontainer"))
+const WatchPage = lazy(()=>import("./Components/WatchPage"))
+const SearchResults=lazy(()=>import("./Components/SearchResults"))
 
 export const appRouter=createBrowserRouter([{
   path:"/",
@@ -18,15 +21,15 @@ export const appRouter=createBrowserRouter([{
   children:[
     {
       path:"/",
-      element:<Maincontainer/>
+      element:<Suspense> <Maincontainer/></Suspense>
     },
     {
       path:"watch",
-      element:<WatchPage/>
+      element:<Suspense><WatchPage/></Suspense>
     },
     {
       path:"search",
-      element:<SearchResults/>
+      element:<Suspense><SearchResults/></Suspense>
     },
     
   ]
