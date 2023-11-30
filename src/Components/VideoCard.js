@@ -1,4 +1,5 @@
 import React from 'react'
+import { formatCount } from '../Utils/helper'
 
 const VideoCard = ({info}) => {
   const {snippet,statistics}=info
@@ -8,7 +9,7 @@ const VideoCard = ({info}) => {
         <img className="rounded-lg" alt="thumbnail" src={thumbnails.medium.url}/>
         <span className='font-bold text-x py-2'>{title}</span> <br/>
         <span className='font-semibold'>{channelTitle}</span> <br/>
-        <span>{statistics.viewCount} Views</span>
+        <span>{formatCount(statistics.viewCount)} Views</span>
     </div>
   )
 }

@@ -5,19 +5,9 @@ import { closeMenu } from '../Utils/appSlice'
 import CommentsContainer from './CommentsContainer'
 import LiveChat from './LiveChat'
 import { API_KEY, YOUTUBE_VIDEO_BY_ID } from '../Utils/constants'
+import { formatCount } from '../Utils/helper'
 
 
-function formatCount(count) {
-  if (count < 1000) {
-      return count.toString();
-  } else if (count < 1000000) {
-      return (count / 1000).toFixed(1) + 'K';
-  } else if (count < 1000000000) {
-      return (count / 1000000).toFixed(1) + 'M';
-  } else {
-      return (count / 1000000000).toFixed(1) + 'B';
-  }
-}
 
 const WatchPage = () => {
 

@@ -15,9 +15,9 @@ const Sidebar = () => {
     <div className='w-48 shadow-md p-5' >
          <ul> 
             <li><Link to="/">Home</Link></li>
-            <li>Shorts</li>
-            <li>Live</li>
-            <li>Movies</li>
+            <li><Link to={"/search?query="+"Shorts"}>Shorts</Link></li>
+            <li><Link to={"/search?query="+"Live"}>Live</Link></li>
+            <li><Link to={"/search?query="+"Movies"}>Movies</Link></li>
         </ul>
 
         <h1 className='font-bold pt-5'>Subscriptions</h1>
